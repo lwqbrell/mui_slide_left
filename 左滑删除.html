@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>左滑删除</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/mui.min.css">
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<h1 class="mui-title">左滑删除</h1>
+		</header>
+		<div class="mui-content">
+			<ul id="left-delete" class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<div class="mui-slider-right mui-disabled">
+						<a class="mui-btn mui-btn-red">删除</a>
+					</div>
+					<div class="mui-slider-handle">
+						左滑显示删除按钮
+					</div>
+				</li>
+			</ul>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script>
+			mui.init();
+			// 监听删除的点击事件
+			mui('#left-delete').on('tap', '.mui-btn', function(event) {
+				var elem = this;
+				var li = elem.parentNode.parentNode;
+				// 点击后弹出询问框
+				mui.confirm('确认删除该条记录？', 'Hello MUI', ['确认', '取消'], function(e) {
+					if (e.index == 0) {
+						li.parentNode.removeChild(li);
+					} else {
+						setTimeout(function() {
+							mui.swipeoutClose(li);
+						}, 0);
+					}
+				});
+			});
+		</script>
+	</body>
+
+</html>
